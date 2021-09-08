@@ -10,7 +10,7 @@ using TokenTest.Auth;
 namespace TokenTest.Migrations
 {
     [DbContext(typeof(TokenAppDbContext))]
-    [Migration("20210908084832_Initial")]
+    [Migration("20210908110855_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,9 +229,8 @@ namespace TokenTest.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("ProductId");
 

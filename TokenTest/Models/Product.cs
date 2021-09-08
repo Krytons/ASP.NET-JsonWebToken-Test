@@ -8,7 +8,7 @@ namespace TokenTest.Models
 {
     public class Product
     {
-        public Product(string name, string price)
+        public Product(string name, double price)
         {
             Name = name;
             Price = price;
@@ -20,7 +20,7 @@ namespace TokenTest.Models
         [MaxLength(30)]
         public string Name { get; set; }
         [Required]
-        public string Price { get; set; }
+        public double Price { get; set; }
 
     }
 }

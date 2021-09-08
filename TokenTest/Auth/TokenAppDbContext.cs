@@ -28,6 +28,7 @@ namespace TokenTest.Auth
                 entity.HasIndex(e => new { e.Name }).IsUnique();
                 entity.Property(e => e.Price).IsRequired(); //Makes Price required
             });
+
         }
     }
 }
