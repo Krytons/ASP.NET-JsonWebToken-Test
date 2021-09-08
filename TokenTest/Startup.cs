@@ -72,6 +72,9 @@ namespace TokenTest
 
             app.UseRouting();
 
+            //Needed for JSON web token
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

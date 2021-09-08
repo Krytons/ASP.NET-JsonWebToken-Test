@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,11 +24,12 @@ namespace TokenTest.Controllers
         }
 
         // GET: api/Products
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             List<Product> productsExists = await _context.Products.ToListAsync();
-            if (productsExists.Count > 0)
+            if (productsExists.Count < 0)
             {
                 return StatusCode(StatusCodes.Status404NotFound, new BaseError("There are no products"));
             }

@@ -10,7 +10,7 @@ using TokenTest.Auth;
 namespace TokenTest.Migrations
 {
     [DbContext(typeof(TokenAppDbContext))]
-    [Migration("20210908110855_Initial")]
+    [Migration("20210908145430_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
