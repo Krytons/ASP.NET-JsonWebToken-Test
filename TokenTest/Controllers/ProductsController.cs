@@ -38,6 +38,7 @@ namespace TokenTest.Controllers
 
 
         // GET: api/products/filter/query
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet("filter/{query}")]
         public IEnumerable<Product> SearchProduct(string query)
         {
