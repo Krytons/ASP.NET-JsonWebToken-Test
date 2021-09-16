@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using TokenTest.Auth;
 
 namespace TokenTest
@@ -32,6 +35,35 @@ namespace TokenTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //services.AddMvc();
+
+            //Swagger
+            services.AddSwaggerGen( c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Products API",
+                    Description = "A simple example ASP.NET Products API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Bartolomeo Caruso",
+                        Email = "caruso.bartolomeo5f@gmail.com",
+                        Url = new Uri("https://github.com/Krytons"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            }).AddSwaggerGenNewtonsoftSupport();
 
             //Entity Framework
             services.AddDbContext<TokenAppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SQLConnectionString")));
@@ -81,7 +113,23 @@ namespace TokenTest
             {
                 endpoints.MapControllers();
             });
+
+            //Needed for swagger
+            ConfigureSwaggerEndpoints(app);
         }
 
+        private void ConfigureSwaggerEndpoints(IApplicationBuilder app)
+        {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API");
+            });
+        }
     }
 }
+
+

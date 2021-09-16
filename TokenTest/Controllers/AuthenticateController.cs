@@ -31,6 +31,19 @@ namespace TokenTest.Controllers
         }
 
         //Login endpoint
+        /// <summary>
+        /// Login for users and admins
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /login
+        ///     {
+        ///         "username" : "krytons",
+        ///         "password" : "password123!"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
