@@ -39,13 +39,18 @@ namespace TokenTest.Controllers
         ///
         ///     POST /login
         ///     {
-        ///         "username" : "krytons",
-        ///         "password" : "password123!"
+        ///         "username" : "Krytons",
+        ///         "password" : "Password123!"
         ///     }
         ///
         /// </remarks>
+        /// <returns>Token JWT item</returns>
+        /// <response code="401">If password is not ok, or the body does not contain an user</response>
         [HttpPost]
         [Route("login")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);

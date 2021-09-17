@@ -36,7 +36,7 @@ namespace TokenTest
         {
             services.AddControllers();
 
-            //services.AddMvc();
+            services.AddMvc();
 
             //Swagger
             services.AddSwaggerGen( c =>
